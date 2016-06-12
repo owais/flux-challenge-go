@@ -17,20 +17,21 @@ func scroller(jedis *models.Jedis, scrollChan chan int) c.Renderer {
 		}
 	}
 
-	up := c.Button(c.Attrs{"class": "css-button-up"})
+	up := c.Button(c.Class("css-button-up"))
 	if first.Object != nil && first.MasterId == 0 {
-		up.SetAttr("class", up.GetAttr("class")+" css-button-disabled")
+		up = up.Append(c.Class("css-button-disabled"))
+
 	} else {
 		up = up.On("click", scroll(2))
 	}
 
-	down := c.Button(c.Attrs{"class": "css-button-down"})
+	down := c.Button(c.Class("css-button-down"))
 
 	if last.Object != nil && last.ApprenticeId == 0 {
-		down.SetAttr("class", down.GetAttr("class")+" css-button-disabled")
+		down = down.Append(c.Class("css-button-disabled"))
 	} else {
 		down = down.On("click", scroll(-2))
 	}
 
-	return c.Div(c.Attrs{"class": "css-scroll-buttons"}, up, down)
+	return c.Div(c.Class("css-scroll-buttons"), up, down)
 }

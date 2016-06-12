@@ -18,10 +18,11 @@ func NewApp() App {
 }
 
 func (app App) Render() c.Renderer {
-	return app.SetAttr("class", "css-root").Append(
+	return app.Append(
+		c.Class("css-root"),
 		header(app.Planet),
 		c.Section(
-			c.Attrs{"class": "css-scrollable-list"},
+			c.Class("css-scrollable-list"),
 			jediList(app.Planet, app.Jedis),
 			scroller(app.Jedis, app.ScrollChan),
 		),

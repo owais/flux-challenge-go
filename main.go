@@ -8,24 +8,23 @@ import (
 )
 
 func main() {
-
 	app := components.NewApp()
-	rootId := "#app-container"
+	rootID := "#app-container"
 
 	planetsChan := planets.NewPlanetsListener()
 	jedisChan, scrollChan := jedis.NewJedisListener(planetsChan)
 
 	app.ScrollChan = scrollChan
-	dom.Render(rootId, app)
+	dom.Render(rootID, app)
 
 	for {
 		select {
 
 		case app.Planet = <-planetsChan:
-			dom.Render(rootId, app)
+			dom.Render(rootID, app)
 
 		case app.Jedis = <-jedisChan:
-			dom.Render(rootId, app)
+			dom.Render(rootID, app)
 		}
 	}
 }
